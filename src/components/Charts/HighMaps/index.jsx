@@ -11,7 +11,7 @@ const initOptions = {
     height: "500",
   },
   title: {
-    text: "Abc",
+    text: "Số liệu chỉ mang tính tham khảo",
   },
   mapNavigation: {
     enabled: true,

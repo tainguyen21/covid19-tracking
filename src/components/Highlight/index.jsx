@@ -15,7 +15,7 @@ function Highlight(props) {
       type: "confirmed",
     },
     {
-      title: "Số ca khỏi",
+      title: "Số ca khỏi (hiện tại API đang bị lỗi)",
       count: data.Recovered,
       type: "recovered",
     },
