@@ -4,14 +4,20 @@ import { Autocomplete, TextField } from "@mui/material";
 
 CountrySelector.propTypes = {
   countries: PropTypes.array,
+  handleOnChange: PropTypes.func,
+  value: PropTypes.object,
 };
 
 CountrySelector.defaultProps = {
   countries: [],
+  handleOnChange: null,
+  value: null,
 };
 
 function CountrySelector(props) {
   const { value, handleOnChange, countries } = props;
+
+  console.log({ value });
 
   return (
     <Autocomplete
