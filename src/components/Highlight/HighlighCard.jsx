@@ -2,8 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardContent, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import CountUp from "react-countup";
 
-HighlighCard.propTypes = {};
+HighlighCard.propTypes = {
+  title: PropTypes.string,
+  count: PropTypes.number,
+  type: PropTypes.string,
+};
+
+HighlighCard.defaultProps = {
+  title: "",
+  count: 0,
+  type: "",
+};
 
 const useStyles = makeStyles({
   wrapper: (props) => {
@@ -37,7 +48,7 @@ function HighlighCard(props) {
           {title}
         </Typography>
         <Typography component="span" variant="body2" className={styles.count}>
-          {count}
+          <CountUp end={count || 0} duration={1.5} separator=" " />
         </Typography>
       </CardContent>
     </Card>

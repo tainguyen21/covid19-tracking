@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Autocomplete, TextField } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => {
+  return {
+    autoComplete: {
+      margin: `24px 0`,
+    },
+  };
+});
 
 CountrySelector.propTypes = {
   countries: PropTypes.array,
@@ -16,11 +25,11 @@ CountrySelector.defaultProps = {
 
 function CountrySelector(props) {
   const { value, handleOnChange, countries } = props;
-
-  console.log({ value });
+  const styles = useStyles();
 
   return (
     <Autocomplete
+      className={styles.autoComplete}
       disablePortal
       options={countries}
       value={value}

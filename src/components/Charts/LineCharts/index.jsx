@@ -3,8 +3,15 @@ import PropTypes from "prop-types";
 import HighchartsReact from "highcharts-react-official";
 import Highchart from "highcharts";
 import moment from "moment";
+import { Button, ButtonGroup } from "@mui/material";
 
-LineCharts.propTypes = {};
+LineCharts.propTypes = {
+  data: PropTypes.array,
+};
+
+LineCharts.defaultProps = {
+  data: [],
+};
 
 const generateOptions = (data) => {
   const categories = data.map((item) => moment(item.Date).format("DD/MM/YYYY"));
@@ -55,14 +62,60 @@ function LineCharts(props) {
   const { data } = props;
 
   const [options, setOptions] = useState({});
-
-  console.log({ options });
+  const [reportType, setReportType] = useState("all");
 
   useEffect(() => {
-    setOptions(generateOptions(data));
-  }, [data]);
+    let filterData = [];
 
-  return <HighchartsReact highcharts={Highchart} options={options} />;
+    switch (reportType) {
+      case "all":
+        filterData = data;
+        break;
+      case "30":
+        filterData = data.slice(data.length - 30);
+        break;
+      case "7":
+        filterData = data.slice(data.length - 7);
+        break;
+      default:
+        filterData = data;
+        break;
+    }
+    setOptions(generateOptions(filterData));
+  }, [data, reportType]);
+
+  return (
+    <div>
+      <ButtonGroup
+        size="small"
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginBottom: "16px",
+        }}
+      >
+        <Button
+          color={reportType === "all" ? "secondary" : ""}
+          onClick={() => setReportType("all")}
+        >
+          Tất cả
+        </Button>
+        <Button
+          color={reportType === "30" ? "secondary" : ""}
+          onClick={() => setReportType("30")}
+        >
+          30 ngày
+        </Button>
+        <Button
+          color={reportType === "7" ? "secondary" : ""}
+          onClick={() => setReportType("7")}
+        >
+          7 ngày
+        </Button>
+      </ButtonGroup>
+      <HighchartsReact highcharts={Highchart} options={options} />
+    </div>
+  );
 }
 
-export default LineCharts;
+export default React.memo(LineCharts);
